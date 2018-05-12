@@ -57,12 +57,16 @@ cask 'dynamodb-local' do
       </plist>
       EOS
 
+    set_ownership launchd_plist
+
     system_command '/bin/launchctl',
                    args: ['unload', '-F', launchd_plist]
 
     system_command '/bin/launchctl',
                    args: ['load', '-F', launchd_plist]
   end
+
+  uninstall launchctl: 'caskroom.dynamodb-local'
 
   caveats do
     depends_on_java('6+')
